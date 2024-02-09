@@ -16,7 +16,7 @@ class DolarController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         $dollars = Dolar::findByDates($req->get('start_date'), $req->get('end_date'))
