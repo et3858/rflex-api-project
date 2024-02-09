@@ -19,18 +19,18 @@ class RegisterValues extends Command
         try {
             $year = (int) $this->argument('year');
             $this->info("Searching for data based on the year {$year}");
-            
+
             // Data response
             ['serie' => $series] = $this->querySource($year);
 
             $this->info("Uploading data");
 
-            foreach ($series as $e) {
-                Dolar::updateOrCreate(
-                    ['date' => Carbon::parse($e['fecha'])],
-                    ['value' => $e['valor']]
-                );
-            }
+            $series = array_map(fn($e) => [
+                'value' => $e['valor'],
+                'date' => Carbon::parse($e['fecha'])
+            ], $series);
+
+            Dolar::upsert($series, ['date'], ['value']);
 
             $count = Dolar::count();
             $this->info("Done");

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('dolars', function (Blueprint $table) {
             $table->id();
             $table->double('value', 5, 2);
-            $table->dateTimeTz('date');
+            $table->dateTimeTz('date')->unique();
             $table->timestamps();
         });
     }
