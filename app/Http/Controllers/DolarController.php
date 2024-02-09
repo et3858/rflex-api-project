@@ -19,7 +19,9 @@ class DolarController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $dollars = Dolar::findByDates($req->get('start_date'), $req->get('end_date'))->get();
+        $dollars = Dolar::findByDates($req->get('start_date'), $req->get('end_date'))
+            ->orderBy('date')
+            ->get();
 
         return response()->json($dollars);
     }
