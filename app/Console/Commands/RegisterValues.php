@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 
 use App\Models\Dolar;
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
+use Throwable;
 
 class RegisterValues extends Command
 {
@@ -14,13 +16,27 @@ class RegisterValues extends Command
 
     public function handle()
     {
-        $year = (int) $this->argument('year');
+        try {
+            $year = (int) $this->argument('year');
+            $this->info("Searching for data based on the year {$year}");
+            
+            // Data response
+            ['serie' => $series] = $this->querySource($year);
 
-        // Data response
-        ['serie' => $series] = $this->querySource($year);
+            $this->info("Uploading data");
 
-        foreach ($series as $e) {
-            Dolar::create(['date' => $e['fecha'], 'value' => $e['valor']]);
+            foreach ($series as $e) {
+                Dolar::updateOrCreate(
+                    ['date' => Carbon::parse($e['fecha'])],
+                    ['value' => $e['valor']]
+                );
+            }
+
+            $count = Dolar::count();
+            $this->info("Done");
+            $this->info($count);
+        } catch (Throwable $th) {
+            $this->error($th->getMessage());
         }
     }
 
