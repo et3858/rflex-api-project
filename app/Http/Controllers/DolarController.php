@@ -3,22 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dolar;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\GetDollarsRequest;
 
 class DolarController extends Controller
 {
-    public function get(Request $req)
+    public function get(GetDollarsRequest $req)
     {
-        $validator = Validator::make($req->all(), [
-            'start_date' => ['required', 'date'],
-            'end_date' => ['required', 'date', 'after_or_equal:start_date'],
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-
         $dollars = Dolar::findByDates($req->get('start_date'), $req->get('end_date'))
             ->orderBy('date')
             ->get();
