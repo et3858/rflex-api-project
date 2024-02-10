@@ -16,7 +16,7 @@ class Dolar extends Model
     protected $hidden = ["created_at", "updated_at"];
     protected $casts = [
         "value" => "double",
-        "date" => "datetime",
+        "date" => "datetime:Y-m-d",
     ];
 
     public function scopeFindByDates(Builder $query, Carbon $startDate, Carbon $endDate): Builder
