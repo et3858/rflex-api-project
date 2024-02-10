@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Dolar extends Model
 {
@@ -18,7 +19,7 @@ class Dolar extends Model
         "date" => "datetime",
     ];
 
-    public function scopeFindByDates(Builder $query, string $startDate, string $endDate): Builder
+    public function scopeFindByDates(Builder $query, Carbon $startDate, Carbon $endDate): Builder
     {
         return $query
             ->whereDate('date', '>=', $startDate)

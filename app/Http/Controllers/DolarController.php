@@ -9,7 +9,7 @@ class DolarController extends Controller
 {
     public function get(GetDollarsRequest $req)
     {
-        $dollars = Dolar::findByDates($req->get('start_date'), $req->get('end_date'))
+        $dollars = Dolar::findByDates($req->date('start_date'), $req->date('end_date'))
             ->orderBy('date')
             ->get();
 
