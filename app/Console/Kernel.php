@@ -10,7 +10,7 @@ class Kernel extends ConsoleKernel
 {
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command(RegisterValues::class)->hourly();
+        $schedule->command(RegisterValues::class, [now()->year])->hourly();
     }
 
     protected function commands(): void
