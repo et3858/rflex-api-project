@@ -1,66 +1,86 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# rflex-api-project
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This is a RestAPI project for the tech assesment by rflex. It provides its resources to an SPA application (https://github.com/et3858/rflex-webapp-project).
+It uses PHP with Laravel.
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Steps
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Install PHP and Composer
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Having PHP v8.2 and above installed in your computer. You can get PHP [in this link](https://www.php.net/manual/en/install.php)
+- Having PHP ini modules installed and enabled.
+- Having Composer v2.6 and above installed in your computer.
+- Having a terminal (either PowerShell or console prompt if you use Windows).
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Download the project
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+In this repository, go to "Code" button, then click on "Download ZIP" link in "Local" tab, or clone it via https or ssh. Once it's downloaded, unzip the file into your preferred location, or if you cloned it anyway, and go to the project folder through the terminal.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Example:
+```sh
+cd path/to/the/project/rflex-api-project
+```
 
-## Laravel Sponsors
+### Install modules and dependencies
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```sh
+composer install
+```
 
-### Premium Partners
+### Copy and rename the .env.example file to .env and set the database variables
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+```
+DB_CONNECTION="mysql"
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE="YOUR_DATABASE"
+DB_USERNAME="YOUR_USERNAME"
+DB_PASSWORD=
+```
 
-## Contributing
+### Run the migrations
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```sh
+php artisan migrate
+```
 
-## Code of Conduct
+### Populate data
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```sh
+php artisan app:register-values 2023
+```
 
-## Security Vulnerabilities
+NOTE: This command uses a parameter of "year" to fill the database with the necessary data. By default, it sets the year as "2023" but you can type for another year and fill the missing data.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
+### (Optional) Run crontab in foreground
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```sh
+php artisan schedule:work
+```
+
+NOTE: It runs commands to update the data of dollars every hour.
+
+
+### Run the server
+
+```sh
+php artisan serve
+```
+
+By default, the project will be running at http://localhost:8000
+
+
+### Available endpoints
+
+```sh
+# Dollars
+GET    '/api'
+```
+
+NOTE: This is the ONLY endpoint available to get the data.<br>
+You only get the data of dollars, and their fields of each element are "id", "value", and "date".<br>
+
+Happy coding.
