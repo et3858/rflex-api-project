@@ -80,7 +80,9 @@ By default, the project will be running at http://localhost:8000
 GET    '/api'
 ```
 
-NOTE: This is the ONLY endpoint available to get the data.<br>
-You only get the data of dollars, and their fields of each element are "id", "value", and "date".<br>
+NOTES:
+- This is the ONLY endpoint available to get the data..
+- The next parameters are mandatory: `start_date` and `end_date`. Each must be date and with the format `YYYY-MM-DD`.
+- You only get the data of dollars, and their fields of each element are `id`, `value`, and `date`.
 
 Happy coding.
